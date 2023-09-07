@@ -1,0 +1,49 @@
+syntax = "proto3";
+package courseManagement;
+
+service courseManagement{
+    rpc createCourse(myCourse) returns (theRespond);
+    rpc updateCourse(myCourse) returns (theRespond);
+    //rpc getAllCourse() returns (allcourses); //(stream myMessage) will be used if u wanted to get the course one by one
+    rpc getCourseByCode(CourseCode) returns(myCourse);
+    rpc deleteCourse(CourseCode) returns (theRespond);
+}
+
+message myCourse {
+    string name = 1;
+    string code = 2;
+    repeated string lecturenames = 3;
+    //String must be lowercase
+    //above we are not intitalising values(not assigning), here we are just numbering
+}
+
+message theRespond {
+    string Respond =1;
+}
+
+message CourseCode{
+    string Code =1;
+}
+
+message allcourses{
+    repeated myCourse allcourses=1;
+}
+//Creating the code for the server stub, the code will be generated in the server folder, after running the command below in terminal
+        //go to the terminal and type the command: bal grpc --input (RPC_Tutorial3.proto //name of file) --output (Server// the code will be generated here) --mode service
+     //The command that worked: bal grpc --input Course.proto --output Server --mode service
+     //the generated code for the server has the .servive
+
+     //creating the code for the client stub, the code will be generated in the client, after running the command below in terminal
+     //The command that worked: bal grpc --input Course.proto --output Client --mode client 
+
+
+        //Below syntax wite: 
+        //import "google/protobuf/empty.proto";
+        //Below syntax wite: import "google/protobuf/wrappers.proto";
+
+        // dont touch pb.bal it is the stub
+        //only change service.ba to implement your logic
+
+        //for GUI can be MOBILE APP, DESKTOP, WEBSITE
+        //but a GUI Client is not required
+        //MySQL is easier, if you want to use a DataBase, in your group project
